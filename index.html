@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nguyen Ngoc Thach · Unity Developer</title>
+<meta name="description" content="Portfolio of Nguyen Ngoc Thach, a Unity game developer from Da Nang, Vietnam, with three solo-made mobile games and an offline 2D animation tool.">
+<meta property="og:title" content="Nguyen Ngoc Thach · Unity Developer">
+<meta property="og:description" content="Three solo-made Unity games for Android and iOS, and AnimGen, an offline 2D animation tool.">
+<meta property="og:image" content="assets/cd-cover.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column of "release sheets", one per shipped project, each with a
+   store-style metadata strip; screenshots scroll sideways inside their own strip. */
+:root {
+  --bg: #eceff1;
+  --surface: #ffffff;
+  --fg: #111418;
+  --muted: #56606b;
+  --line: #d5dbe0;
+  --link: #0a58b3;
+  --mark: #ffd23f;
+  --mark-ink: #111418;
+  --chip: #e2e7eb;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1114; --surface: #161a1f; --fg: #e9ecef; --muted: #9aa4ae; --line: #2a3139;
+    --link: #73b4ff; --mark: #d9ad1f; --mark-ink: #0e1114; --chip: #222830; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1114; --surface: #161a1f; --fg: #e9ecef; --muted: #9aa4ae; --line: #2a3139;
+  --link: #73b4ff; --mark: #d9ad1f; --mark-ink: #0e1114; --chip: #222830; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 1rem/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+img { max-width: 100%; display: block; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: 1040px; margin: 0 auto; }
+
+/* Top bar */
+.top {
+  display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; justify-content: space-between;
+  padding-block: 20px; font: 500 0.82rem/1 var(--mono); color: var(--muted);
+}
+.top nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.top a { color: var(--muted); text-decoration: none; }
+.top a:hover { color: var(--fg); }
+
+/* Hero */
+.hero { padding-block: 40px 56px; display: grid; gap: 28px; }
+.hero h1 {
+  font: 800 clamp(2.6rem, 8vw, 5.4rem)/0.95 var(--display);
+  letter-spacing: -0.03em; margin: 0; text-wrap: balance;
+}
+.hero .role { font: 600 clamp(1.1rem, 2.4vw, 1.4rem)/1.35 var(--body); margin: 0; max-width: 34ch; text-wrap: balance; }
+.mark { background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%); color: inherit; padding: 0 2px; }
+.hero p.lede { margin: 0; max-width: 62ch; color: var(--muted); font-size: 1.05rem; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--fg); }
+.facts div { padding: 14px 16px 0 0; border-right: 1px solid var(--line); padding-left: 16px; }
+.facts div:first-child { padding-left: 0; }
+.facts div:last-child { border-right: 0; }
+.facts b { display: block; font: 800 2.1rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.facts span { font: 400 0.8rem/1.4 var(--mono); color: var(--muted); }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px;
+  font: 600 0.92rem/1 var(--body); text-decoration: none; border: 1.5px solid var(--fg); color: var(--fg); background: transparent;
+  cursor: pointer;
+}
+.btn.solid { background: var(--fg); color: var(--bg); }
+.btn:hover { transform: translateY(-1px); }
+
+/* Section headings */
+.section { padding-block: 48px; border-top: 1px solid var(--line); }
+.eyebrow { font: 500 0.78rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.section > h2 { font: 700 clamp(1.8rem, 4vw, 2.6rem)/1.05 var(--display); letter-spacing: -0.02em; margin: 0 0 32px; text-wrap: balance; }
+
+/* Release sheet */
+.release { display: grid; gap: 18px; padding-block: 8px 48px; }
+.release + .release { border-top: 1px dashed var(--line); padding-top: 40px; }
+.release-head { display: flex; gap: 16px; align-items: center; }
+.icon { width: 64px; height: 64px; border-radius: 16px; flex: none; background: var(--chip); object-fit: cover; }
+.release-head h3 { font: 700 clamp(1.5rem, 3.4vw, 2rem)/1.05 var(--display); margin: 0; letter-spacing: -0.01em; }
+.release-head p { margin: 4px 0 0; color: var(--muted); }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none;
+  font: 400 0.76rem/1 var(--mono);
+}
+.meta li { background: var(--chip); padding: 7px 10px; border-radius: 6px; }
+.meta li.status { background: var(--mark); color: var(--mark-ink); font-weight: 500; }
+.shots {
+  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px;
+  margin: 0; scrollbar-width: thin;
+}
+.shots figure { margin: 0; flex: none; scroll-snap-align: start; }
+.shots img { height: clamp(170px, 30vw, 260px); width: auto; max-width: none; border-radius: 10px; background: var(--chip); }
+.shots figcaption { font: 400 0.75rem/1.3 var(--mono); color: var(--muted); padding-top: 6px; }
+.body-cols { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.body-cols ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+.body-cols li::marker { color: var(--muted); }
+.side { display: grid; gap: 14px; font-size: 0.93rem; }
+.side dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; }
+.side dt { font: 400 0.76rem/1.6 var(--mono); color: var(--muted); }
+.side dd { margin: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* AnimGen */
+.tool-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.tool-grid figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: grid; }
+.tool-grid figure.dark { background: #000; }
+.tool-grid img { width: 100%; height: 100%; object-fit: contain; max-height: 320px; }
+.tool-grid figcaption { font: 400 0.76rem/1.4 var(--mono); color: var(--muted); padding: 10px 12px; border-top: 1px solid var(--line); background: var(--surface); }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-size: 0.88rem; line-height: 1.45; }
+.steps li::before { content: "Step " counter(s); display: block; font: 500 0.72rem/1 var(--mono); color: var(--muted); margin-bottom: 6px; }
+.steps b { display: block; margin-bottom: 2px; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.skills h3 { font: 700 1.05rem/1.2 var(--display); margin: 0 0 10px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { font: 400 0.8rem/1 var(--mono); padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; }
+
+/* About / contact */
+.about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; }
+.about p { margin: 0 0 14px; max-width: 62ch; }
+.contact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 14px; align-content: start; align-self: start; }
+.contact .email { font: 500 1rem/1.3 var(--mono); user-select: all; word-break: break-all; }
+.copied { font: 400 0.8rem/1 var(--mono); color: var(--muted); min-height: 1em; }
+footer { padding-block: 32px 48px; font: 400 0.78rem/1.5 var(--mono); color: var(--muted); border-top: 1px solid var(--line); }
+
+@media (max-width: 860px) {
+  .body-cols, .about { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skills { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts div { border-right: 0; padding-left: 0; padding-bottom: 12px; }
+  .tool-grid { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span>thachnguyen-dev · Da Nang, VN</span>
+  <nav aria-label="Sections">
+    <a href="#games">Games</a>
+    <a href="#animgen">AnimGen</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Nguyen Ngoc Thach</h1>
+  <p class="role">Unity developer who <span class="mark">ships whole games alone</span>, from the first script to the store page.</p>
+  <p class="lede">I study Game Development at VTC Academy (graduating December 2027). In my spare time I have built and published three mobile games and a desktop animation tool. I am looking for a Unity Developer role or internship where I can learn from an experienced team.</p>
+  <div class="facts">
+    <div><b>3</b><span>games built solo<br>for Android and iOS</span></div>
+    <div><b>~700</b><span>automated tests<br>across the three games</span></div>
+    <div><b>~80k</b><span>lines of C#<br>across the three games</span></div>
+    <div><b>1</b><span>animation tool<br>for my own pipeline</span></div>
+  </div>
+  <div class="cta">
+    <a class="btn solid" href="#games">See the games</a>
+    <a class="btn" href="https://github.com/thachnguyen-dev" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="https://play.google.com/store/apps/developer?id=the%20stone" target="_blank" rel="noopener">Google Play</a>
+  </div>
+</section>
+
+<section class="section" id="games">
+  <p class="eyebrow">Shipped work</p>
+  <h2>Three games, each designed, built, tested and released by me</h2>
+
+  <!-- Z-Force -->
+  <article class="release">
+    <div class="release-head">
+      <img class="icon" src="https://play-lh.googleusercontent.com/Ck1cQUUBDNbL_mPSQ74aGwuI6zutcXjAiRa_qlA-hqqynRZhBpwEWkvidaSjwRhcmljWIU2zinDQGDrlOjBp=w128-h128" alt="" width="64" height="64" loading="lazy">
+      <div>
+        <h3>Z-Force: The Laboratory</h3>
+        <p>Top-down zombie shooter with a mission campaign, an endless mode and online co-op.</p>
+      </div>
+    </div>
+    <ul class="meta">
+      <li class="status">Live on Google Play</li>
+      <li>Unity 6 · URP</li>
+      <li>Netcode for GameObjects</li>
+      <li>~40k lines C#</li>
+      <li>228 tests</li>
+      <li>com.thachnguyen.zombieproto</li>
+    </ul>
+    <div class="shots" tabindex="0" aria-label="Z-Force screenshots">
+      <figure><img src="https://play-lh.googleusercontent.com/kyKafRrIiRs-ivBHYCA4XYDnYYUitwjJJZoy7OlzoLpEYawk_1nY-FHra0aHI9WYVjBw_Itup3OxndUBElyQ40s=w1052-h592" alt="Z-Force gameplay screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/ysW-V6WB0QMEB57cOnnu4Zt-N8njQx4g8d3VvajI8QYDNA67TANEKP8lvvIzegBFFBBmeXqnlgMYxiXDEz6TLA=w1052-h592" alt="Z-Force gameplay screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/D44LnxXA9ZFOsHCEvBv59iXHUgF1WBO0pcIBB4w8oHmFzPqAsdB3Y2uFXgFhkyXBGVJ50s4feaBWlO2othrduQ=w1052-h592" alt="Z-Force gameplay screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/VdJdDTT8cVw-gKoHJMCC74L2i5Tv85wf6REGXdWdS26Xjp9BFCnfy8vkWUKJSYF9_GbWpcFzNsWu79LtFTlg=w1052-h592" alt="Z-Force gameplay screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/A4Vdu-3O5nL-EAGvxXv0TSxUXM9zJHu_DlYCUNDxWsokZqVX20FLMudyiWAkcxjoHjDPZxTb7H7ZEifKqrD_=w1052-h592" alt="Z-Force gameplay screenshot" loading="lazy"></figure>
+    </div>
+    <div class="body-cols">
+      <ul>
+        <li><b>Online 2-player co-op</b> through Unity Relay join codes. The host runs the simulation, the client sends small commands, and the teammate's movement is smoothed because network updates arrive unevenly.</li>
+        <li><b>One character pipeline for everyone.</b> Touch players, the online teammate and the AI teammate all produce the same per-frame intent and share the same combat code.</li>
+        <li><b>Zombie AI</b> with an 80° sight cone blocked by walls, hearing that rain reduces, NavMesh movement, and spawning only outside every player's view.</li>
+        <li><b>Six missions and an endless mode</b> on tile-based maps saved as JSON, edited in my own Map Editor window and an in-scene stage editor.</li>
+        <li><b>Procedural animation in code:</b> walk and run gaits and full-body weapon holds, with no animation clips.</li>
+        <li><b>Mobile performance:</b> map meshes merged per chunk, hidden faces culled, grid-based sight and collision queries.</li>
+      </ul>
+      <div class="side">
+        <dl>
+          <dt>Monetisation</dt><dd>LevelPlay ads with EU consent, one-time "Remove Ads + Co-op" purchase</dd>
+          <dt>Platforms</dt><dd>Android, iOS export</dd>
+          <dt>Tools</dt><dd>29 editor scripts, headless batch-mode builds</dd>
+        </dl>
+        <div class="links">
+          <a class="btn solid" href="https://play.google.com/store/apps/details?id=com.thachnguyen.zombieproto" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn" href="https://github.com/thachnguyen-dev/z-force-the-laboratory" target="_blank" rel="noopener">Source code</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Childhood Days -->
+  <article class="release">
+    <div class="release-head">
+      <img class="icon" src="assets/cd-kite-icon.jpg" alt="" width="64" height="64" loading="lazy">
+      <div>
+        <h3>Childhood Days <span style="font-weight:500;color:var(--muted)">· Những ngày thơ ấu</span></h3>
+        <p>Eight mini-games from a Vietnamese village childhood, tied together by a funny, nostalgic story.</p>
+      </div>
+    </div>
+    <ul class="meta">
+      <li class="status">In review on Google Play</li>
+      <li>Unity 6.3 · URP 2D</li>
+      <li>Android · iOS · Web · Windows</li>
+      <li>~18k lines C#</li>
+      <li>69 tests</li>
+      <li>Vietnamese + English</li>
+    </ul>
+    <div class="shots" tabindex="0" aria-label="Childhood Days screenshots">
+      <figure><img src="assets/cd-yard.jpg" alt="The village yard hub, each object opens a mini-game" loading="lazy"><figcaption>The yard: every object opens a game</figcaption></figure>
+      <figure><img src="assets/cd-drawing.jpg" alt="Drawing contest with wax crayons" loading="lazy"><figcaption>Vẽ tranh: wax-crayon drawing contest</figcaption></figure>
+      <figure><img src="assets/cd-caro.jpg" alt="Caro five-in-a-row on a notebook page" loading="lazy"><figcaption>Cờ caro against a search AI</figcaption></figure>
+      <figure><img src="assets/cd-kite.jpg" alt="Kite flying in the afternoon fields" loading="lazy"><figcaption>Thả diều: run with the wind</figcaption></figure>
+      <figure><img src="assets/cd-mango.jpg" alt="Throwing stones at a mango tree" loading="lazy"><figcaption>Trộm xoài: slingshot physics</figcaption></figure>
+      <figure><img src="assets/cd-sled.jpg" alt="Areca-sheath sled race down a village slope" loading="lazy"><figcaption>Đua mo cau vs 3 AI racers</figcaption></figure>
+      <figure><img src="assets/cd-swim.jpg" alt="Swimming race in a river" loading="lazy"><figcaption>Tắm sông: tap-per-stroke race</figcaption></figure>
+    </div>
+    <div class="body-cols">
+      <ul>
+        <li><b>Board-game AI:</b> alpha-beta search for Ô ăn quan, and a caro AI that reads open threes and double threats. Difficulty changes how well the AI plays, never the rules.</li>
+        <li><b>A wax-crayon canvas</b> that feels like real crayons, pencil and eraser, with an AI deskmate drawing the same subject.</li>
+        <li><b>One shared flow</b> for every game: story, instructions, play, result. Easy, Normal and Hard unlock in order, for 21 stars in total.</li>
+        <li><b>Art generated in code</b> by a small signed-distance rasterizer, down to the 15,700 hairs on grandma's head, plus synthesized drawing sounds.</li>
+        <li><b>Crash-safe saves</b> written to a temp file first with a backup, fully offline play, and 3,000 random Ô ăn quan games in the test suite.</li>
+      </ul>
+      <div class="side">
+        <dl>
+          <dt>Monetisation</dt><dd>Rewarded ads only, played when the player chooses; coin packs</dd>
+          <dt>Platforms</dt><dd>Android, iOS, CrazyGames web build</dd>
+          <dt>Audience</dt><dd>Ages 13+, players who grew up in Vietnam and curious players abroad</dd>
+        </dl>
+        <div class="links">
+          <a class="btn" href="https://github.com/thachnguyen-dev/childhood-days" target="_blank" rel="noopener">Source code</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Smiley II -->
+  <article class="release">
+    <div class="release-head">
+      <img class="icon" src="https://play-lh.googleusercontent.com/DxZLRh6oFj9CmQMWZgBFfFCHe0YBvFlcOnyH8OrSHtD4TguVhMP-zWRP_PedvZDJFlOlSIk0j6wXMrjQ69bP=w128-h128" alt="" width="64" height="64" loading="lazy">
+      <div>
+        <h3>Smiley II</h3>
+        <p>A relaxing one-finger physics platformer. Drag, let go, climb.</p>
+      </div>
+    </div>
+    <ul class="meta">
+      <li class="status">Live on Google Play</li>
+      <li>Unity 6 · 2D physics</li>
+      <li>~24k lines C#</li>
+      <li>403 tests</li>
+      <li>com.thachnguyen.smiley</li>
+    </ul>
+    <div class="shots" tabindex="0" aria-label="Smiley II screenshots">
+      <figure><img src="https://play-lh.googleusercontent.com/gLCJeHD_Emiqe8WbihVgyURZa56zAnSS9pcWpvHLFPR01ah-3B6o5G0Uf6027lXFDb68hXO35OrhCiCdqv7XfQ=w1052-h592" alt="Smiley II screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/JGN43agOB0BOsJSUjJ5fsAOmRJKTP5JL0-uYKtKnp_nw3kvt0iwm5fL2w7mZRxGlYAVKPhlPWIzV0dx-VkQ9OQ=w1052-h592" alt="Smiley II screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/5hSef8aFE6em8oiJt8vlZfb4haniy7WdhCaddiAQ4XZdCJ2_AJExZEg2vnY7ZIQ51r5K5OCDTCm6fp4BTHmsIg=w1052-h592" alt="Smiley II screenshot" loading="lazy"></figure>
+      <figure><img src="https://play-lh.googleusercontent.com/R-sfZUTu9nE8bg1tqciQG6ZQ5nt5RYoUcTtZc-ymtevZlrHyqMMtKAsNgxm8v8BTirXRn2VsUaawp64FuRlmGu8=w1052-h592" alt="Smiley II screenshot" loading="lazy"></figure>
+    </div>
+    <div class="body-cols">
+      <ul>
+        <li><b>Physics does the playing.</b> Each launch is one impulse on a Rigidbody2D, with a trajectory guide while aiming.</li>
+        <li><b>A soft body that is physical.</b> The collider deforms on impact, and friction and bounce change with the shape; the idle wobble stays visual only.</li>
+        <li><b>Event-based saves</b> on landing, platform changes and app backgrounding, so the climb survives an app kill.</li>
+        <li><b>Android back-gesture fix</b> through a native gesture-exclusion call, after measuring which edge swipe was closing the game.</li>
+        <li><b>Rules in plain C#</b>, separate from MonoBehaviours, and tested directly: 251 edit-mode and 152 play-mode tests.</li>
+      </ul>
+      <div class="side">
+        <dl>
+          <dt>Monetisation</dt><dd>One menu banner with consent and a parent gate</dd>
+          <dt>Platforms</dt><dd>Android, iOS export, web build</dd>
+          <dt>Tools</dt><dd>16 editor tools, including a map validator that fails the build</dd>
+        </dl>
+        <div class="links">
+          <a class="btn solid" href="https://play.google.com/store/apps/details?id=com.thachnguyen.smiley" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn" href="https://github.com/thachnguyen-dev/smiley-ii" target="_blank" rel="noopener">Source code</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="section" id="animgen">
+  <p class="eyebrow">Tools</p>
+  <h2>AnimGen: one character image in, Unity sprite sheets out</h2>
+  <div class="body-cols" style="margin-bottom:24px">
+    <div>
+      <p style="margin-top:0;max-width:62ch">Character animation was the slowest part of making games alone. AI tools that redraw every frame change the face, armour and colours between frames, and their result arrives all at once. AnimGen does the opposite: it cuts the original art into layered body parts, rigs them to an 18-point skeleton and poses them like a puppet, so every frame keeps the original pixels. The user checks and corrects the result after every step.</p>
+    </div>
+    <div class="side">
+      <dl>
+        <dt>Stack</dt><dd>C# / WPF (.NET 9) app, Python backend over a token-protected local API</dd>
+        <dt>Models</dt><dd>DWPose, SAM 2, BiRefNet, SDXL + ControlNet, all offline on an 8 GB laptop GPU</dd>
+        <dt>Tests</dt><dd>148 (pytest)</dd>
+      </dl>
+      <div class="links"><a class="btn" href="https://github.com/thachnguyen-dev/animgen" target="_blank" rel="noopener">Source code</a></div>
+    </div>
+  </div>
+  <div class="tool-grid">
+    <figure class="dark"><img src="assets/animgen-walk.gif" alt="Animated knight walk cycle generated by AnimGen" loading="lazy"><figcaption>Output: an 8-frame walk cycle from one image</figcaption></figure>
+    <figure><img src="assets/animgen-part-map.jpg" alt="Part map splitting a knight into body-part layers" loading="lazy"><figcaption>Step 2: the part map, one colour per rig layer</figcaption></figure>
+  </div>
+  <ol class="steps" style="margin-top:16px">
+    <li><b>Character</b>Background removed, skeleton and view detected. Drag joints to fix them.</li>
+    <li><b>Part map</b>Body parts split into layers; hidden sections rebuilt.</li>
+    <li><b>Animation</b>Pick one of 20+ templates or pose your own in the pose editor.</li>
+    <li><b>Generate</b>8 frames in seconds, with an optional AI finishing pass.</li>
+    <li><b>Export</b>Transparent PNG frames and a 1 × 8 sprite sheet for Unity.</li>
+  </ol>
+</section>
+
+<section class="section" id="skills">
+  <p class="eyebrow">Toolbox</p>
+  <h2>What I work with</h2>
+  <div class="skills">
+    <div>
+      <h3>Engine and code</h3>
+      <div class="tags"><span>Unity 6</span><span>C#</span><span>URP</span><span>Netcode for GameObjects</span><span>Unity Relay</span><span>NavMesh</span><span>2D physics</span><span>Editor tools</span><span>Unity Test Framework</span><span>Python</span><span>WPF</span></div>
+    </div>
+    <div>
+      <h3>Art and animation</h3>
+      <div class="tags"><span>Blender</span><span>Adobe tools</span><span>Procedural art in code</span><span>Sprite sheets</span><span>Procedural animation</span></div>
+    </div>
+    <div>
+      <h3>Shipping</h3>
+      <div class="tags"><span>Google Play Console</span><span>iOS export</span><span>LevelPlay ads</span><span>Unity IAP</span><span>Consent and privacy</span><span>Git and GitHub</span><span>Claude Code</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <p class="eyebrow">About</p>
+  <h2>Let's talk</h2>
+  <div class="about">
+    <div>
+      <p>I design my games, model the characters in Blender, and test every build on real phones. I write the code with Claude Code as an AI pair programmer, and I can explain every system on this page: why it is built the way it is and what I would change next.</p>
+      <p><b>Education:</b> VTC Academy, Game Development, graduating December 2027.</p>
+      <p><b>Languages:</b> Vietnamese (native); English for technical reading and basic conversation.</p>
+    </div>
+    <div class="contact">
+      <span class="eyebrow" style="margin:0">Email</span>
+      <span class="email" id="email">mun.ngocthach@gmail.com</span>
+      <div class="links">
+        <button class="btn solid" id="copy" type="button">Copy email</button>
+        <a class="btn" href="mailto:mun.ngocthach@gmail.com">Write an email</a>
+      </div>
+      <span class="copied" id="copied" aria-live="polite"></span>
+    </div>
+  </div>
+</section>
+
+<footer>Nguyen Ngoc Thach · published as "the stone" on Google Play · Da Nang, Vietnam</footer>
+
+</div>
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var text = document.getElementById('email').textContent.trim();
+  var note = document.getElementById('copied');
+  function fallback() {
+    var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    note.textContent = 'Selected. Press Ctrl+C to copy.';
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { note.textContent = 'Copied.'; }, fallback);
+  } else { fallback(); }
+});
+document.querySelectorAll('.shots img, img.icon').forEach(function (img) {
+  img.addEventListener('error', function () {
+    var fig = img.closest('figure'); if (fig) fig.hidden = true; else img.style.visibility = 'hidden';
+  });
+});
+</script>
+</body>
+</html>
